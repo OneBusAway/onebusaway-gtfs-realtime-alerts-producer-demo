@@ -230,6 +230,7 @@ public class GtfsRealtimeProviderImpl implements GtfsRealtimeProvider {
      * field.
      */
     _alerts = feedMessage.build();
+    _log.info("alerts extracted: " + _alerts.getEntityCount());
   }
 
   /**

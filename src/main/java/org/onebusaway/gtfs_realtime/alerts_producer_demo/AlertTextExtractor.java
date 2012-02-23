@@ -67,6 +67,7 @@ public class AlertTextExtractor {
   private AlertText processHtml(String html) {
     Tidy tidy = new Tidy();
     tidy.setShowWarnings(false);
+    tidy.setQuiet(true);
     Document doc = tidy.parseDOM(new StringReader(html), new StringWriter());
     StringBuilder title = new StringBuilder();
     StringBuilder description = new StringBuilder();
