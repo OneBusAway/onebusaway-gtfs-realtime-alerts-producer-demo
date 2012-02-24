@@ -36,7 +36,7 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 import org.onebusway.gtfs_realtime.exporter.GtfsRealtimeExporterModule;
 import org.onebusway.gtfs_realtime.exporter.GtfsRealtimeProvider;
-import org.onebusway.gtfs_realtime.exporter.GtfsRealtimeSupport;
+import org.onebusway.gtfs_realtime.exporter.GtfsRealtimeLibrary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -67,7 +67,7 @@ public class GtfsRealtimeProviderImpl implements GtfsRealtimeProvider {
 
   private AlertTextExtractor _alertTextExtractor;
 
-  private volatile FeedMessage _alerts = GtfsRealtimeSupport.createFeedMessageBuilder().build();
+  private volatile FeedMessage _alerts = GtfsRealtimeLibrary.createFeedMessageBuilder().build();
 
   private URL _url;
 
@@ -126,7 +126,7 @@ public class GtfsRealtimeProviderImpl implements GtfsRealtimeProvider {
    */
   @Override
   public FeedMessage getTripUpdates() {
-    FeedMessage.Builder feedMessage = GtfsRealtimeSupport.createFeedMessageBuilder();
+    FeedMessage.Builder feedMessage = GtfsRealtimeLibrary.createFeedMessageBuilder();
     return feedMessage.build();
   }
 
@@ -135,7 +135,7 @@ public class GtfsRealtimeProviderImpl implements GtfsRealtimeProvider {
    */
   @Override
   public FeedMessage getVehiclePositions() {
-    FeedMessage.Builder feedMessage = GtfsRealtimeSupport.createFeedMessageBuilder();
+    FeedMessage.Builder feedMessage = GtfsRealtimeLibrary.createFeedMessageBuilder();
     return feedMessage.build();
   }
 
@@ -167,7 +167,7 @@ public class GtfsRealtimeProviderImpl implements GtfsRealtimeProvider {
      * The FeedMessage.Builder is what we will use to build up our GTFS-realtime
      * feed. We will add alerts to the feed and then save the results.
      */
-    FeedMessage.Builder feedMessage = GtfsRealtimeSupport.createFeedMessageBuilder();
+    FeedMessage.Builder feedMessage = GtfsRealtimeLibrary.createFeedMessageBuilder();
 
     /**
      * We iterate over every JSON alert object.
@@ -196,8 +196,8 @@ public class GtfsRealtimeProviderImpl implements GtfsRealtimeProvider {
        * supports providing text in multiple languages, but in this example, we
        * just specify a single message in the default language.
        */
-      alert.setHeaderText(GtfsRealtimeSupport.getTextAsTranslatedString(text.getTitle()));
-      alert.setDescriptionText(GtfsRealtimeSupport.getTextAsTranslatedString(text.getDescription()));
+      alert.setHeaderText(GtfsRealtimeLibrary.getTextAsTranslatedString(text.getTitle()));
+      alert.setDescriptionText(GtfsRealtimeLibrary.getTextAsTranslatedString(text.getDescription()));
 
       /**
        * Every alert needs an id. Since one isn't included in the SEPTA JSON

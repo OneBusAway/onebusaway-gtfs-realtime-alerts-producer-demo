@@ -17,8 +17,8 @@ package org.onebusaway.gtfs_realtime.alerts_producer_demo;
 
 import java.io.File;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -27,12 +27,9 @@ import org.apache.commons.cli.GnuParser;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.Parser;
 import org.onebusaway.cli.CommandLineInterfaceLibrary;
-import org.onebusaway.guice.jetty_exporter.JettyExporterModule;
-import org.onebusaway.guice.jsr250.JSR250Module;
 import org.onebusaway.guice.jsr250.LifecycleService;
+import org.onebusway.gtfs_realtime.exporter.AlertsFileWriter;
 import org.onebusway.gtfs_realtime.exporter.AlertsServlet;
-import org.onebusway.gtfs_realtime.exporter.GtfsRealtimeExporterModule;
-import org.onebusway.gtfs_realtime.exporter.TripUpdatesFileWriter;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -75,11 +72,8 @@ public class GtfsRealtimeAlertsProducerDemoMain {
     Parser parser = new GnuParser();
     CommandLine cli = parser.parse(options, args);
 
-    List<Module> modules = new ArrayList<Module>();
-    modules.add(new JSR250Module());
-    modules.add(new JettyExporterModule());
-    modules.add(new GtfsRealtimeExporterModule());
-    modules.add(new GtfsRealtimeAlertsProducerDemoModule());
+    Set<Module> modules = new HashSet<Module>();
+    GtfsRealtimeAlertsProducerDemoModule.addModuleAndDependencies(modules);
 
     Injector injector = Guice.createInjector(modules);
     injector.injectMembers(this);
@@ -94,7 +88,7 @@ public class GtfsRealtimeAlertsProducerDemoMain {
     }
     if (cli.hasOption(ARG_ALERTS_PATH)) {
       File path = new File(cli.getOptionValue(ARG_ALERTS_PATH));
-      TripUpdatesFileWriter writer = injector.getInstance(TripUpdatesFileWriter.class);
+      AlertsFileWriter writer = injector.getInstance(AlertsFileWriter.class);
       writer.setPath(path);
     }
 
