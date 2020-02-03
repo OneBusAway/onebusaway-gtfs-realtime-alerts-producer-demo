@@ -16,6 +16,9 @@
     <repository>
       <id>public.onebusaway.org</id>
       <url>http://nexus.onebusaway.org/content/groups/public/</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
     </repository>
   </repositories>
 
@@ -28,7 +31,7 @@
   <issueManagement>
     <system>GitHub</system>
     <url>https://github.com/OneBusAway/onebusaway-gtfs-realtime-alerts-producer-demo/issues</url>
-  </issueManagement>  
+  </issueManagement>
 
   <dependencies>
     <dependency>
@@ -44,7 +47,7 @@
     <dependency>
       <groupId>org.onebusaway</groupId>
       <artifactId>onebusaway-cli</artifactId>
-      <version>1.0.1-SNAPSHOT</version>
+      <version>1.0.1</version>
     </dependency>
     <dependency>
       <groupId>org.json</groupId>
